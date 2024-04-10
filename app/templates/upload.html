@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Arquivo CSV</title>
+</head>
+<body>
+    <h1>Enviar Arquivo CSV</h1>
+    
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Enviar Arquivo</button>
+    </form>
+</body>
+</html>
