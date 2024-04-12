@@ -1,0 +1,69 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f088;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+header {
+    background-color: #8e44ad;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.container h2 {
+    color: #8e44ad; 
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container form input[type="file"] {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.container form button {
+    padding: 10px 20px;
+    background-color: #8e44ad; /* Cor roxa escura para o botão */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.container form button:hover {
+    background-color: #9b59b6; /* Cor roxa média ao passar o mouse */
+}
