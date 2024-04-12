@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registros com Valor Nulo</title>
+</head>
+<body>
+    <h1>Registros com Valor Nulo</h1>
+    <table border="1">
+        <tr>
+            <th>Equipment ID</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.equipmentId }}</td>
+            <td>{{ record.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,3 +1,4 @@
+from numpy import record
 from models import db, SensorData
 from flask import Flask, render_template, request
 
@@ -12,10 +13,14 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-#Definindo a rota para renderizar o formulário HTML
+#Definindo a rota para renderizar o formulário HTML da página home
 @app.route('/')
 def index():
     return render_template('home.html')
+
+@app.route('/search_values')
+def search_null():
+    return render_template('search_values.html', records = SensorData.search_values_byObjct())
 
 #Definindo a rota para receber o arquivo JSON
 @app.route('/data', methods=['POST'])

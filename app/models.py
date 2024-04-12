@@ -40,13 +40,17 @@ class SensorData(db.Model):
 
         return jsonify({'message': 'Data received!'}), 201
     
-    #Função para buscar valores do campo 'value' nulos
-    def db_search_values():
+    #Função para buscar valores do campo 'value' nulos e retornando um dicionário
+    def search_values_byId():
         # Consulta os registros no banco de dados com 'value' nulo
         null_value_records = SensorData.query.filter(SensorData.value.is_(None)).all()
-        # Cria um dicionário de tuplas (equipmentId, timestamp) para os registros com 'value' nulo
+        
+        # Cria um dicionário de tuplas (equipmentId) para os registros com 'value' nulo
         print("Registros com value nulo:", null_value_records)
         return {(record.equipmentId): record for record in null_value_records}
+    
+    def search_values_byObjct():
+        return SensorData.query.filter(SensorData.value.is_(None)).all()
 
     #Função para receber o request CSV
     def receive_CSV():
@@ -65,7 +69,7 @@ class SensorData(db.Model):
             if file and file.filename.endswith('.csv'):
                 # Lê o arquivo CSV e processa os dados
                 df = pd.read_csv(file)
-                map_values = SensorData.db_search_values()
+                map_values = SensorData.search_values_byId()
 
 
                 #Itera pelas linhas do arquivo csv
@@ -80,11 +84,11 @@ class SensorData(db.Model):
                        record.value = value
                        print(f"Registro atualizado: equipmentId={equipmentId}, timestamp={timestamp}, value={value}")
                     else:
-                        #caso não haja valores correspondentes, cria um novo registro na tabela
+                        #Caso não haja valores correspondentes, cria um novo registro na tabela
                         sensor_data = SensorData(equipmentId=equipmentId, timestamp=timestamp, value=value)
                         db.session.add(sensor_data)
                     
-                # Commit para salvar os dados no banco de dados
+                # Commit para salvar as alterações no banco de dados
                 db.session.commit()
                 
                 return "CSV file was processed and database was Updated", 200
