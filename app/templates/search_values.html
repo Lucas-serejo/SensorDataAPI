@@ -2,20 +2,31 @@
 <html>
 <head>
     <title>Registros com Valor Nulo</title>
+    <link rel="stylesheet" href="/static/styleSearch_values.css">
 </head>
 <body>
-    <h1>Registros com Valor Nulo</h1>
-    <table border="1">
-        <tr>
-            <th>Equipment ID</th>
-            <th>Timestamp</th>
-        </tr>
-        {% for record in records %}
-        <tr>
-            <td>{{ record.equipmentId }}</td>
-            <td>{{ record.timestamp }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <header>
+        <h1>Registros com Valor Nulo</h1>
+    </header>
+    <div class="container">
+</head>
+
+
+<body>
+    <div class="container">
+        <table border="1">
+            <tr>
+                <th>Equipment ID</th>
+                <th>Timestamp</th>
+            </tr>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.equipmentId }}</td>
+                <td>{{ record.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 </body>
 </html>

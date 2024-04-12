@@ -1,0 +1,51 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f088;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+header {
+    background-color: #8e44ad;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+table {
+    width: 100%; /* Largura da tabela */
+    border-collapse: collapse; /* Colapso das bordas das células */
+    margin-top: 20px; /* Espaçamento superior da tabela */
+}
+
+table, th, td {
+    border: 1px solid black; /* Estilo das bordas */
+    padding: 10px; /* Preenchimento interno das células */
+    text-align: center; /* Centraliza o texto nas células */
+}
+
+th {
+    background-color: #8e44ad; /* Cor de fundo roxa para cabeçalho */
+    color: white; /* Cor do texto no cabeçalho */
+}
