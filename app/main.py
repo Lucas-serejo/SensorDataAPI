@@ -1,4 +1,4 @@
-from numpy import record
+import webbrowser
 from models import db, SensorData
 from flask import Flask, render_template, request
 
@@ -33,6 +33,15 @@ def upload_csv():
     if request.method == 'POST':
         return SensorData.receive_CSV()
     return render_template('upload_csv.html')
+#Suporte para abertura da página home ao rodar o script
+def open_browser():
+    base_url = 'http://127.0.0.1:5000/'
+    try:
+        # Tenta abrir o navegador apenas se a URL não estiver aberta
+        webbrowser.get().open(base_url, new=2)
+    except Exception as e:
+        print(f"Erro ao abrir o navegador: {e}")
 
 if __name__ == '__main__':
+    open_browser()
     app.run(debug=True)
