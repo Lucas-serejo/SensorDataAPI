@@ -1,0 +1,120 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f088;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+header {
+    background-color: #3498db;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+h2 {
+    color: black;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 20px 0; 
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    background-color: #74c7ff;
+    ;
+    cursor: pointer;
+}
+
+li:nth-child(even) {
+    background-color: #74c7ff;
+}
+
+li:hover {
+    background-color: #74c7ff;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+li {
+    margin: 20px 0;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    background-color: #74c7ff;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+li::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(173, 205, 239, 0.696);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: 0;
+    opacity: 0;
+}
+
+li:hover::before {
+    width: 600px;
+    height: 100px;
+    opacity: 1;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}

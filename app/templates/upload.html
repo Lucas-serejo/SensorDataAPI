@@ -2,13 +2,42 @@
 <html>
 <head>
     <title>Upload de Arquivo CSV</title>
+    <style>
+        /* Estilos para centralizar o conteúdo */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Torna a altura igual à altura da janela do navegador */
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        /* Estilo para ocultar o botão de redirecionamento inicialmente */
+        #btnHome {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Enviar Arquivo CSV</h1>
-    
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv" required>
-        <button type="submit">Enviar Arquivo</button>
-    </form>
+    <div class="container">
+        <h1>Enviar Arquivo CSV</h1>
+        
+        <form id="uploadForm" method="POST" action="/upload_csv" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".csv" required>
+            <button type="submit">Enviar Arquivo</button>
+        </form>
+
+    </div>
+
+
 </body>
 </html>

@@ -23,8 +23,8 @@ def receive_data():
     return SensorData.receive_JSON()
 
 #Definindo a rota para receber o arquivo CSV
-@app.route('/upload', methods=['POST'])
-def upload():
+@app.route('/upload_csv', methods=['POST'])
+def upload_csv():
     return SensorData.receive_CSV()
 
 if __name__ == '__main__':

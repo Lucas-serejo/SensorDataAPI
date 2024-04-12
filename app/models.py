@@ -11,8 +11,8 @@ db = SQLAlchemy()
 #Representa a estrutura do banco de dados
 class SensorData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    equipmentId = db.Column(db.String(50), nullable=True)
-    timestamp = db.Column(db.DateTime, nullable=True)
+    equipmentId = db.Column(db.String(50), nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False)
     value = db.Column(db.Float(precision=2), nullable=True)
     
     #Função para receber o request JSON
@@ -21,7 +21,17 @@ class SensorData(db.Model):
         data = request.json
         equipmentId = data['equipmentId']
         timestamp = datetime.strptime(data['timestamp'], "%Y-%m-%dT%H:%M:%S.%f%z")
-        value = round(float(data['value']), 2)
+        
+        #Verifica se o campo value está presente
+        if 'value' in data:
+            try:
+                value = round(float(data['value']), 2)
+            #Captura os eventuais erros de escrita ou valor e atrui o valor nulo
+            except (TypeError, ValueError):
+                value = None
+        #Caso não esteja presente, atribui o valor nulo
+        else:
+            value = None
 
         #Adiciona o dado do sensor ao banco de dados
         new_sensor_data = SensorData(equipmentId=equipmentId, timestamp=timestamp, value=value)
@@ -30,6 +40,14 @@ class SensorData(db.Model):
 
         return jsonify({'message': 'Data received!'}), 201
     
+    #Função para buscar valores do campo 'value' nulos
+    def db_search_values():
+        # Consulta os registros no banco de dados com 'value' nulo
+        null_value_records = SensorData.query.filter(SensorData.value.is_(None)).all()
+        # Cria um dicionário de tuplas (equipmentId, timestamp) para os registros com 'value' nulo
+        print("Registros com value nulo:", null_value_records)
+        return {(record.equipmentId): record for record in null_value_records}
+
     #Função para receber o request CSV
     def receive_CSV():
         try:
@@ -47,26 +65,35 @@ class SensorData(db.Model):
             if file and file.filename.endswith('.csv'):
                 # Lê o arquivo CSV e processa os dados
                 df = pd.read_csv(file)
-                
+                map_values = SensorData.db_search_values()
+
+
+                #Itera pelas linhas do arquivo csv
                 for _, row in df.iterrows():
                     equipmentId = str(row['equipmentId'])
                     timestamp = datetime.strptime(row['timestamp'], "%Y-%m-%dT%H:%M:%S.%f%z")
                     value = round(float(row['value']), 2)
+
+                    if (equipmentId) in map_values:
+                        # Atualiza o 'value' do registro correspondente com o valor do arquivo CSV
+                       record = map_values[(equipmentId)]
+                       record.value = value
+                       print(f"Registro atualizado: equipmentId={equipmentId}, timestamp={timestamp}, value={value}")
+                    else:
+                        #caso não haja valores correspondentes, cria um novo registro na tabela
+                        sensor_data = SensorData(equipmentId=equipmentId, timestamp=timestamp, value=value)
+                        db.session.add(sensor_data)
                     
-                    # Cria um novo objeto SensorData e o adiciona ao banco de dados
-                    sensor_data = SensorData(equipmentId=equipmentId, timestamp=timestamp, value=value)
-                    db.session.add(sensor_data)
-                
                 # Commit para salvar os dados no banco de dados
                 db.session.commit()
                 
-                return "Arquivo CSV processado e dados adicionados ao banco de dados com sucesso!", 200
+                return "CSV file was processed and database was Updated", 200
             
             else:
-                return "Por favor, envie um arquivo CSV", 400
+                return "Please, insert a CVS file", 400
         
         except Exception as e:
-            return f"Erro ao processar o arquivo CSV: {str(e)}", 500
+            return f"Error processing CSV file: {str(e)}", 500
 
 
 
