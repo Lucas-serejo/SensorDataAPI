@@ -1,8 +1,7 @@
-
-#Estabelece a conexão com o banco de dados
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+import numpy as np
 import pandas as pd
 
 db = SQLAlchemy()
@@ -100,10 +99,46 @@ class SensorData(db.Model):
             return f"Error processing CSV file: {str(e)}", 500
 
 
+    #Realiza o cálculo da média dos valores do banco
+    def calculate_average_values(chart_type):
 
+        #Cria um dicionário para referenciar o período e a média
+        average_values = {}
 
+        #Encontra o intervalo de tempo baseado na escolha do usuário
+        if chart_type == '24h':
+            start_time = datetime.now() - timedelta(days=1)
+        elif chart_type == '48h':
+            start_time = datetime.now() - timedelta(days=2)
+        elif chart_type == '1w':
+            start_time = datetime.now() - timedelta(weeks=1)
+        elif chart_type == '1m':
+            start_time = datetime.now() - timedelta(weeks=4)
+        else:
+            raise ValueError("Tipo de gráfico inválido")
+        
+        print(start_time)
 
+        # Consulta os registros no banco de dados para o período especificado
+        query_result = SensorData.query.filter(SensorData.timestamp >= start_time).all()
 
-    
+        print(query_result)
+
+        # Extrai os valores relevantes para cálculo da média (excluindo valores None)
+        values = [record.value for record in query_result if record.value is not None]
+
+        print(values)
+
+        # Calcula a média dos valores
+        if values:
+            average_value = np.mean(values)
+        else:
+            average_value = 0
+
+        average_values[chart_type] = average_value
+
+        print(average_values)
+
+        return average_values
 
 

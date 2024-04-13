@@ -1,7 +1,9 @@
 import os
 import webbrowser
+from matplotlib import pyplot as plt
+# from graphic_generator import *
 from models import db, SensorData
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request, send_file
 
 #Cria uma instância do framework flask
 app = Flask(__name__)
@@ -35,9 +37,19 @@ def upload_csv():
         return SensorData.receive_CSV()
     return render_template('upload_csv.html')
 
-@app.route('/graphics')
+@app.route('/graphics', methods = ['GET'])
 def graphics():
-    return render_template('graphics.html') 
+    return render_template('graphics.html')
+
+@app.route('/get_chart', methods=['GET'])
+def get_chart():
+    chart_type = request.args.get('chartType')
+
+    # Calcula os valores médios para o período de tempo específico (24h, 48h, 1w, 1m)
+    average_values = SensorData.calculate_average_values(chart_type)
+
+    # Retorna os valores médios como resposta JSON
+    return jsonify(average_values)
 
 
 if __name__ == '__main__':

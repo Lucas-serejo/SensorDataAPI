@@ -1,0 +1,73 @@
+/* Reset de estilos padrão */
+body, h1, form, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para o título principal */
+header {
+    background-color: #8e44ad;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+
+/* Estilo para o formulário de seleção de gráfico */
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para os botões de seleção de gráfico */
+input[type="radio"] + label {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #8e44ad;
+    border: 2px solid #8e44ad;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+input[type="radio"]:checked + label {
+    background-color: #8e44ad;
+    color: #fff;
+}
+
+/* Estilo para o botão de visualizar */
+button {
+    background-color: #8e44ad;
+    border-radius: 20px;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Estilo para o container do gráfico */
+#chartContainer {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 100%; /* Largura total do container */
+    height: 400px; /* Altura fixa do container (ajuste conforme necessário) */
+}

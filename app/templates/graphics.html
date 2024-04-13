@@ -4,27 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gráficos</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="/static/styleGraphic.css">
 </head>
 <body>
-    <h1>Escolha um gráfico para visualizar:</h1>
-    <form id="chartForm">
-        <input type="radio" name="chartType" value="24h" checked> Últimas 24 horas<br>
-        <input type="radio" name="chartType" value="48h"> Últimas 48 horas<br>
-        <input type="radio" name="chartType" value="1w"> Última semana<br>
-        <input type="radio" name="chartType" value="1m"> Último mês<br>
-        <button type="button" onclick="visualizarGrafico()">Visualizar</button>
-    </form>
+    <header>
+        <h1>Escolha um gráfico para visualizar:</h1>
+    </header>
+    <div class="container"></div>
+</head>
+
     <div id="chartContainer">
         <!-- Aqui será exibido o gráfico selecionado -->
     </div>
+
+    <form id="chartForm">
+        <label>
+            <input type="radio" name="chartType" value="24h" checked> Últimas 24 horas
+        </label>
+        <label>
+            <input type="radio" name="chartType" value="48h"> Últimas 48 horas
+        </label>
+        <label>
+            <input type="radio" name="chartType" value="1w"> Última semana
+        </label>
+        <label>
+            <input type="radio" name="chartType" value="1m"> Último mês
+        </label>
+        <button type="button" onclick="visualizarGrafico()">Visualizar</button>
+    </form>
+
     <script>
         function visualizarGrafico() {
-            // Obter o valor do tipo de gráfico selecionado
             const chartType = document.querySelector('input[name="chartType"]:checked').value;
-            
-            // Atualizar o conteúdo do chartContainer com o gráfico selecionado
-            const chartContainer = document.getElementById('chartContainer');
-            chartContainer.innerHTML = `<img src="/get_chart?chartType=${chartType}" alt="Gráfico ${chartType}">`;
+
+            // Fazer uma requisição AJAX para obter os valores médios do gráfico
+            fetch(`/get_chart?chartType=${chartType}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Dados recebidos, agora gerar o gráfico
+                    const xValues = Object.keys(data);
+                    const yValues = Object.values(data);
+
+                    const chartContainer = document.getElementById('chartContainer');
+                    chartContainer.innerHTML = ''; // Limpar o conteúdo anterior
+
+                    // Gerar o gráfico usando Plotly
+                    const trace = {
+                        x: xValues,
+                        y: yValues,
+                        type: 'bar',
+                        marker: { color: '#8e44ad' },
+                        hoverinfo: 'y',
+                    };
+
+                    const layout = {
+                        title: 'Média dos Valores por Período de Tempo',
+                        xaxis: { title: 'Período de Tempo' },
+                        yaxis: { title: 'Média dos Valores' },
+                    };
+
+                    Plotly.newPlot('chartContainer', [trace], layout);
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar os dados do gráfico:', error);
+                });
         }
     </script>
 </body>
