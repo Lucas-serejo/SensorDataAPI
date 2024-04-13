@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos</title>
+</head>
+<body>
+    <h1>Escolha um gráfico para visualizar:</h1>
+    <form id="chartForm">
+        <input type="radio" name="chartType" value="24h" checked> Últimas 24 horas<br>
+        <input type="radio" name="chartType" value="48h"> Últimas 48 horas<br>
+        <input type="radio" name="chartType" value="1w"> Última semana<br>
+        <input type="radio" name="chartType" value="1m"> Último mês<br>
+        <button type="button" onclick="visualizarGrafico()">Visualizar</button>
+    </form>
+    <div id="chartContainer">
+        <!-- Aqui será exibido o gráfico selecionado -->
+    </div>
+    <script>
+        function visualizarGrafico() {
+            // Obter o valor do tipo de gráfico selecionado
+            const chartType = document.querySelector('input[name="chartType"]:checked').value;
+            
+            // Atualizar o conteúdo do chartContainer com o gráfico selecionado
+            const chartContainer = document.getElementById('chartContainer');
+            chartContainer.innerHTML = `<img src="/get_chart?chartType=${chartType}" alt="Gráfico ${chartType}">`;
+        }
+    </script>
+</body>
+</html>
