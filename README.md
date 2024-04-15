@@ -21,13 +21,13 @@ pip install mysql-connector-python
 
 ## Instruções de Compilação
 1- Para o código seja executado plenamente, certifique-se de instalar o servidor MySQL corretamente. Acesse seu root desta forma:
-````pyhton
+````python
 mysql -u root -p
 ````
 Basta inserir sua senha, caso tudo esteja certo, estará logado no banco de dados
 
 2- Agora, execute as seguintes linhas de código:
-````pyhton
+````python
 CREATE USER 'adm'@'localhost' IDENTIFIED BY 'admpassword';
 GRANT ALL PRIVILEGES ON SensorData.* TO 'adm'@'localhost';
 FLUSH PRIVILEGES;
@@ -35,22 +35,28 @@ FLUSH PRIVILEGES;
 Assim, você irá criar um novo usuário para estabelecer a conexão
 
 3-Por fim, execute as seguintes linhas para criar o banco de dados:
-````pyhton
+````python
 CREATE SCHEMA IF NOT EXISTS `SensorData` DEFAULT CHARACTER SET utf8 ;
 USE `SensorData` ;
-
-CREATE TABLE IF NOT EXISTS `SensorData`.`Sensor_data` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `equipmentId` VARCHAR(45) NOT NULL,
-  `timestamp` DATETIME NOT NULL,
-  `value` DECIMAL(10,2) NULL,
-  PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
 ````
-Agora poderá executar a aplicação
+Agora poderá executar a aplicação.
 
 ## OBS
 Em caso de falha na criação do banco pelo método acima, utilize o script do banco na pasta 'scripts'.
+
+## Funcionalidades
+Simulação de Dados: Gera dados simulados de sensores e envia para o aplicativo Flask.
+
+Busca por Registros Nulos: Permite buscar e visualizar registros com valores nulos.
+
+Upload de Arquivos: Permite fazer upload de arquivos CSV para atualização do banco de dados. 
+
+Visualização Gráfica: Renderiza gráficos com médias de valores para diferentes períodos de tempo. 
+
+OBS:
+O arquivo CSV deve ser separado por vírgulas, cheque o padrão de delimitador do Excel para o tipo de arquivo uma vez que pode estar configurado para ';'.
+
+A média pode ser visualizada ao passar o cursor sobre o gráfico.
 
 ## Padrão de Commit
 Utiliza-se tipos de commit para padronizar as mensagens de commit neste projeto. A seguir, estão os tipos de commit a serem utilizados, juntamente com exemplos de sumários correspondentes:
