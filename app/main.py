@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 import webbrowser
 from matplotlib import pyplot as plt
@@ -19,6 +20,17 @@ with app.app_context():
 #Definindo a rota para renderizar o formulário HTML da página home
 @app.route('/')
 def index():
+
+    # Preencher o banco de dados com dados simulados ao iniciar o aplicativo
+    num_records = 2000
+    equipment_id_prefix = "EQ"
+    timestamp_start = datetime.strftime(datetime.now(), "%Y-%m-%dT%H:%M:%S")
+    timestamp_end = "2024-02-01T00:00:00"
+    min_value = 10
+    max_value = 1000
+    null_value_prob = 0.2
+
+    SensorData.fill_database_with_simulated_data(num_records, equipment_id_prefix, timestamp_start, timestamp_end, min_value, max_value, null_value_prob)
     return render_template('home.html')
 
 @app.route('/search_values')

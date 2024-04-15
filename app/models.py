@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import random
 from flask import jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import numpy as np
@@ -97,6 +98,46 @@ class SensorData(db.Model):
         
         except Exception as e:
             return f"Error processing CSV file: {str(e)}", 500
+
+    @staticmethod
+    def generate_simulated_data(equipment_id_prefix, timestamp_start, timestamp_end, min_value=50.0, max_value=100.0, null_value_prob=0.2):
+            equipment_id = f"{equipment_id_prefix}-{random.randint(10000, 99999)}"
+            timestamp = SensorData.generate_random_timestamp(timestamp_start, timestamp_end)
+            value = round(random.uniform(min_value, max_value), 2) if random.random() > null_value_prob else None
+
+            return {
+                "equipmentId": equipment_id,
+                "timestamp": timestamp.isoformat(),
+                "value": value
+        }
+
+    @staticmethod  
+    def generate_random_timestamp(start_time, end_time):
+        start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%S")
+        end_time = datetime.strptime(end_time, "%Y-%m-%dT%H:%M:%S")
+        random_timestamp = start_time + (end_time - start_time) * random.random()
+        return random_timestamp
+
+    @staticmethod  
+    def fill_database_with_simulated_data(num_records, equipment_id_prefix, timestamp_start, timestamp_end, min_value=50.0, max_value=100.0, null_value_prob=0.2):
+        for _ in range(num_records):
+            simulated_data = SensorData.generate_simulated_data(equipment_id_prefix, timestamp_start, timestamp_end, min_value, max_value, null_value_prob)
+            SensorData.save_simulated_data_to_database(simulated_data)
+
+        print(f"Simulação concluída. {num_records} registros foram adicionados ao banco de dados.")
+
+    @staticmethod
+    def save_simulated_data_to_database(data):
+        try:
+            equipmentId = data['equipmentId']
+            timestamp = datetime.fromisoformat(data['timestamp'])
+            value = data['value']
+
+            new_sensor_data = SensorData(equipmentId=equipmentId, timestamp=timestamp, value=value)
+            db.session.add(new_sensor_data)
+            db.session.commit()
+        except Exception as e:
+            print(f"Erro ao salvar dados simulados no banco de dados: {e}")
 
 
     #Realiza o cálculo da média dos valores do banco
