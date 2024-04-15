@@ -71,3 +71,18 @@ button {
     width: 100%; /* Largura total do container */
     height: 400px; /* Altura fixa do container (ajuste conforme necessário) */
 }
+
+#linkVoltar {
+    position: absolute;
+    left: 20px;
+    top: 20px; 
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  #linkVoltar:hover {
+    opacity: 0.8; 
+  }
+  

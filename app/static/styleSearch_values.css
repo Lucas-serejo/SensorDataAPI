@@ -49,3 +49,18 @@ th {
     background-color: #8e44ad; /* Cor de fundo roxa para cabeçalho */
     color: white; /* Cor do texto no cabeçalho */
 }
+
+#linkVoltar {
+    position: absolute;
+    left: 20px;
+    top: 20px; 
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  #linkVoltar:hover {
+    opacity: 0.8; 
+  }
+  

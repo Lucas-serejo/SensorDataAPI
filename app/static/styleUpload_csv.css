@@ -67,3 +67,18 @@ h1 {
 .container form button:hover {
     background-color: #9b59b6; /* Cor roxa média ao passar o mouse */
 }
+
+#linkVoltar {
+    position: absolute;
+    left: 20px;
+    top: 20px; 
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  #linkVoltar:hover {
+    opacity: 0.8; 
+  }
+  
