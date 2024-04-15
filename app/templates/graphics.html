@@ -10,29 +10,29 @@
 <body>
     <header>
         <a id="linkVoltar" href="javascript:history.back()">←</a>
-        <h1>Escolha um gráfico para visualizar:</h1>
+        <h1>Average Value Graphics</h1>
     </header>
     <div class="container"></div>
 </head>
 
     <div id="chartContainer">
-        <!-- Aqui será exibido o gráfico selecionado -->
+        
     </div>
 
     <form id="chartForm">
         <label>
-            <input type="radio" name="chartType" value="24h" checked> Últimas 24 horas
+            <input type="radio" name="chartType" value="24h" checked> 24h
         </label>
         <label>
-            <input type="radio" name="chartType" value="48h"> Últimas 48 horas
+            <input type="radio" name="chartType" value="48h"> 48h
         </label>
         <label>
-            <input type="radio" name="chartType" value="1w"> Última semana
+            <input type="radio" name="chartType" value="1w"> 1 week
         </label>
         <label>
-            <input type="radio" name="chartType" value="1m"> Último mês
+            <input type="radio" name="chartType" value="1m"> 1 month
         </label>
-        <button type="button" onclick="visualizarGrafico()">Visualizar</button>
+        <button type="button" onclick="visualizarGrafico()">View</button>
     </form>
 
     <script>
@@ -43,7 +43,7 @@
             fetch(`/get_chart?chartType=${chartType}`)
                 .then(response => response.json())
                 .then(data => {
-                    // Dados recebidos, agora gerar o gráfico
+                    // Dados recebidos, agora gerar o gráfico:
                     const xValues = Object.keys(data);
                     const yValues = Object.values(data);
 
@@ -60,9 +60,9 @@
                     };
 
                     const layout = {
-                        title: 'Média dos Valores por Período de Tempo',
-                        xaxis: { title: 'Período de Tempo' },
-                        yaxis: { title: 'Média dos Valores' },
+                        title: 'Average Values per Period of Time',
+                        xaxis: { title: 'Period of Time' },
+                        yaxis: { title: 'Average Value' },
                     };
 
                     Plotly.newPlot('chartContainer', [trace], layout);

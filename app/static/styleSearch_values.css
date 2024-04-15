@@ -31,23 +31,24 @@ h1 {
     color: white;
     margin-bottom: 20px;
     font-family: 'Arial Black', sans-serif;
+    text-decoration: underline;
 }
 
 table {
-    width: 100%; /* Largura da tabela */
-    border-collapse: collapse; /* Colapso das bordas das células */
-    margin-top: 20px; /* Espaçamento superior da tabela */
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 20px; 
 }
 
 table, th, td {
-    border: 1px solid black; /* Estilo das bordas */
-    padding: 10px; /* Preenchimento interno das células */
-    text-align: center; /* Centraliza o texto nas células */
+    border: 1px solid black; 
+    padding: 10px; 
+    text-align: center; 
 }
 
 th {
-    background-color: #8e44ad; /* Cor de fundo roxa para cabeçalho */
-    color: white; /* Cor do texto no cabeçalho */
+    background-color: #8e44ad; 
+    color: white; 
 }
 
 #linkVoltar {

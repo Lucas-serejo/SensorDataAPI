@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem de Inserção</title>
+    <link rel="stylesheet" href="/static/styleMessage.css">
+</head>
+<body>
+    <header>
+        <h1>Insert Message</h1>
+    </header>
+    <div class="container">
+        <div class="header">
+            <h2>Message:</h2>
+        </div>
+        <div class="mensagem">
+            {% if mensagem %}
+                {{ mensagem }}
+            {% endif %}
+        </div>
+        <div class="botao-voltar">
+            <button class="voltar-btn" onclick="window.history.back()">Voltar</button>
+        </div>
+    </div>
+</body>
+</html>
