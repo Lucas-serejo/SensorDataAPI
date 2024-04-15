@@ -8,7 +8,7 @@ from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
 
 #Estabelece a conexão com o banco de dados.
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mysqlroot@localhost/SensorData'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://adm:admpassword@localhost/SensorData'
 db.init_app(app)
 
 #Criar todas as tabelas no banco de dados.
